@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "开发工具——Git"
-date = "2023-08-01"
+date = "2023-07-17"
 description = "开发工具专题之Git"
 categories = [
     "开发工具"
@@ -87,8 +87,6 @@ git pull [url] master
 
 ### 四、IDEA使用Git
 
-
-
 ### 五、实例
 
 ```gas
@@ -98,6 +96,3 @@ git add .  // 添加到暂存区
 git commit -m "modify test"  // 提交给git管理
 git push cs_notes master  // 提交到GitHub
 ```
-
-
-

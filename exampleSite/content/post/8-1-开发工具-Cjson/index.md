@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "开发工具——Cjson"
-date = "2023-08-01"
+date = "2023-07-18"
 description = "开发工具专题之Cjson"
 categories = [
     "开发工具"
@@ -329,7 +329,7 @@ cJSON *cJSON_GetObjectItem(cJSON *object,const char *string);
 char  *cJSON_Print(cJSON *item);
 // 作用：将cJSON数据解析成JSON字符串，并在堆中开辟一块char*的内存空间存储JSON字符串
 // 返回值：成功返回一个char*指针该指针指向位于堆中JSON字符串，失败返回NULL
-    
+  
 void  cJSON_Delete(cJSON *c);
 // 作用：释放位于堆中cJSON结构体内存
 // 返回值：无
@@ -347,7 +347,7 @@ int main()
 	 						\"device\":\"lamp\",	\
 	 						\"power\":1,			\
 	 						\"brightness\":50		\
-	 					}";									
+	 					}";								
 	 //JSON字符串到cJSON格式
 	cJSON* cjson = cJSON_Parse(json_string); 
 	//判断cJSON_Parse函数返回值确定是否打包成功
@@ -386,7 +386,7 @@ int main()
  
 int main()
 {
-	char json_arr_string[]="{\"test_arr\":[{\"test_1\":\"arr_1\",\"test_2\":\"arr_2\",\"test_3\":\"arr_3\"},{\"test_1\":\"1\",\"test_2\":\"2\",\"test_3\":\"3\"}]}";	
+	char json_arr_string[]="{\"test_arr\":[{\"test_1\":\"arr_1\",\"test_2\":\"arr_2\",\"test_3\":\"arr_3\"},{\"test_1\":\"1\",\"test_2\":\"2\",\"test_3\":\"3\"}]}";
  
 	cJSON* cjson = cJSON_Parse(json_arr_string);
 	if(cjson == NULL)
@@ -470,11 +470,10 @@ root = cJSON_Parse(jssd_def);
 
 ##### 2.3.6 释放json对象空间
 
- ````c
+````c
 // 如果使用cJSON_Delete(cJSON *c);进行对象释放：当一个对象是另一个对象的元素时，只调用外层对象释放，否则会出现硬件错误；如果内层对象被释放，再释放外层对象，也会出现硬件错误。如果不放心，则可以直接使用free进行多次释放。
 
 //cJSON_Delete( root );等价于{free( item );free( root );}
 //警告：使用cJSON_Delete( root );则不能使用cJSON_Delete( item );
 cJSON_Delete( root );
- ````
-
+````

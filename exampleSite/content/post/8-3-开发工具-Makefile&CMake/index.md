@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "开发工具——Makefile&CMake"
-date = "2023-08-01"
+date = "2023-07-16"
 description = "开发工具专题之Makefile&CMake"
 categories = [
     "开发工具"
@@ -45,7 +45,7 @@ clean:
 例3：
 main: main.o input.o calcu.o
 	gcc -o main main.o input.o calcu.o
-	
+
 %.o : %.c         # 通配符
 	gcc -c $<     # 自动化变量，依赖文件集合中的第一个文件，如果依赖文件是以模式(即“%”)定义的，那么“$<”就是符合模式的一系列				   的文件集合。
 clean:
@@ -86,7 +86,7 @@ $(foreach <var>, <list>, <text>)     # 意思就是把参数<list>中的单词�
 
 ## CMake
 
->源文件：**CMakeLists.txt**
+> 源文件：**CMakeLists.txt**
 
 ### CMake常用命令
 
@@ -173,7 +173,7 @@ foreach(loop_var arg1 arg2 ...)
  	command2(args ...)
 	...
 	endforeach(loop_var)
-	
+
 例：  # foreach 循环测试
 set(my_list hello world china)
 foreach(loop_var ${my_list})
@@ -203,7 +203,7 @@ endwhile()
 
 ### CMake函数
 
->通过 function()定义的函数它的使用范围是**全局**的，并不局限于当前 源码、可以在其子源码或者父源码中被使用
+> 通过 function()定义的函数它的使用范围是**全局**的，并不局限于当前 源码、可以在其子源码或者父源码中被使用
 
 ```cmake
 # function 函数
@@ -294,4 +294,3 @@ add_executable(main main.c)
 # 编译选项 详见：https://blog.csdn.net/u013836909/article/details/107770465
 -march=name  # 这指定了目标ARM体系结构的名称
 ```
-

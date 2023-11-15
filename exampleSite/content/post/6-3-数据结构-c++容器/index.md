@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "数据结构——c++容器"
-date = "2023-08-01"
+date = "2023-07-23"
 description = "数据结构专题之c++容器"
 categories = [
     "数据结构"
@@ -31,15 +31,15 @@ using namespace std;
 
 int main(){
 	deque<int> d;
-	
+
 	for(int i=0; i<10; i++){
 		d.push_back(i);
 	}
-	
+
 	for(deque<int>::iterator it = d.begin(); it != d.end(); it++){
 		cout<< *it << " ";
 	}
-	
+
 	return 0;
 } 
 ```
@@ -91,42 +91,42 @@ void print_list(list<int> &lis){
 
 int main(){
 	list<int> lis;
-	
+
 	for(int i=0; i<10; i++){
 		lis.push_back(i);
 	}
-	
+
 	// 插入
 	list<int>::iterator it = lis.begin();  //list容器的迭代器是双向迭代器，不支持随机访问
 	++it;
 	lis.insert(++it, 100);                 //it = it + 1;//错误，不可以跳跃访问，即使是+1 
 	print_list(lis);
-	
+
 	// 删除
 	lis.erase(++it);
-	
+
 	lis.remove(9);
-	
+
 	// 赋值 
 	list<int> lis2(lis);
 	list<int> lis3(lis.begin(), lis.end()); 
-	
+
 	list<int> lis4;
 	lis4.assign(10, 100);
-	
+
 	// 交换 
 	lis2.swap(lis4); 
-	
+
 	// 反转
 	lis.reverse();
 	print_list(lis); 
-	
+
 	// 排序
 	lis.sort();    // 这里可以自定义规则 mycompare >> lis.sort(mycompare) 
 	print_list(lis);
-	
+
 	lis.clear();
-	
+
 	return 0;
 }
 ```
@@ -142,10 +142,10 @@ int main(){
 	map中所有元素都是pair
 	pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值）
 	所有元素都会根据元素的键值自动排序
-	
+
 	map和multimap区别：
 		map不允许容器中有重复key值元素
-		multimap允许容器中有重复key值元素	
+		multimap允许容器中有重复key值元素
 */
 
 /*
@@ -181,18 +181,18 @@ int main(){
 	map<int, string> m;
 	int id = 0;
 	string name;
-	
+
 	for(int i=0; i<5; i++){
 		cin>> id >> name;
 		m.insert(pair<int, string>(id, name));
 	}
 
 	map<int, string>:: iterator position = m.find(2);
-	
+
 	if(position != m.end()){
 		cout<< position->first << " " << position->second << endl;
 	}
-	
+
 	return 0;
 }
 ```
@@ -216,20 +216,20 @@ using namespace std;
 
 int main(){
 	queue<int> qu;
-	
+
 	for(int i=0; i<10; i++){
 		qu.push(i);
 	}
-	
+
 	cout<<qu.size()<<endl; 
-	
+
 	while(!qu.empty()){
 		cout<<qu.front()<<" ";
 		cout<<qu.back()<<" ";
-		
+	
 		qu.pop(); 
 	}
-	
+
 	return 0;
 }
 ```
@@ -273,13 +273,13 @@ void print_set(set<int> &s){
 
 int main(){
 	set<int> s;
-	
+
 	for(int i=10; i>0; i--){
 		s.insert(i);
 	}
-	
+
 	print_set(s);
-	
+
 	return 0;
 }
 ```
@@ -302,19 +302,19 @@ using namespace std;
 
 int main(){
 	stack<int> st; // 创建栈 
-	
+
 	for(int i=0; i<10; i++){
 		st.push(i); // 入栈 
 	}
-	
+
 	cout<<st.size()<<endl; 
-	
+
 	while( !st.empty() ){
 		cout<<st.top()<<" ";  // 输出栈顶元素 
-		
+	
 		st.pop(); // 出栈 
 	}
-	
+
 	return 0;
 }
 ```
@@ -331,7 +331,7 @@ v.capacity(); //容器的容量
 v.size(); //返回容器中元素的个数
 v.resize(int num); //重新指定容器的长度为num，若容器变长，则以默认值填充新位置。
 				//如果容器变短，则末尾超出容器长度的元素被删除。
-				
+			
 v.push_back(ele); //尾部插入元素ele
 v.pop_back(); //删除最后一个元素
 
@@ -361,23 +361,22 @@ void print_vector(vector<int> &v){
 
 int main(){
 	vector<int> v;
-	
+
 	for(int i=0; i<10; i++){
 		v.push_back(i);
 	}
-	
+
 	for(int i=0; i<v.size(); i++){
 		cout<< v[i] << " ";
 	}
 	v.push_back(100);
-	
+
 	cout<<endl<< v.at(10) << endl;
-	
+
 	cout<< endl << v.capacity()<< endl;
-	
+
 	print_vector(v);
-	
+
 	return 0;
 }
 ```
-

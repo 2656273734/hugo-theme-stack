@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "硬件——存储"
-date = "2023-08-01"
+date = "2023-07-27"
 description = "硬件专题之存储"
 categories = [
     "硬件"
@@ -21,7 +21,7 @@ tags = [
 
 ![](2.png)
 
-> 速度：寄存器>Cache > 内存 （RAM > ROM）> 硬盘 
+> 速度：寄存器>Cache > 内存 （RAM > ROM）> 硬盘
 
 ### 嵌入式存储器类型
 
@@ -71,11 +71,11 @@ tags = [
 
 ### DDR
 
->是SDRAM的一种，DDR 全称是 Double Data Rate SDRAM，也就是双倍速率 SDRAM，SDRAM 在一个 CLK 周期传输一次数据，
+> 是SDRAM的一种，DDR 全称是 Double Data Rate SDRAM，也就是双倍速率 SDRAM，SDRAM 在一个 CLK 周期传输一次数据，
 >
->DDR 在一个 CLK 周期传输两次数据，也就是在上升沿和下降沿各传输一次数据，这个概念叫做预取(prefetch)，相当于 DDR 的预取为 2bit，
+> DDR 在一个 CLK 周期传输两次数据，也就是在上升沿和下降沿各传输一次数据，这个概念叫做预取(prefetch)，相当于 DDR 的预取为 2bit，
 >
->DDR2 在 DDR 基础上进一步增加预取，增加到了 4bit，也就是在一个 CLK 周期传输4次数据，DDR3 在 DDR2 的基础上将预取提高到 8bit，也就是在一个 CLK 周期传输8次数据
+> DDR2 在 DDR 基础上进一步增加预取，增加到了 4bit，也就是在一个 CLK 周期传输4次数据，DDR3 在 DDR2 的基础上将预取提高到 8bit，也就是在一个 CLK 周期传输8次数据
 
 ### Cache
 
@@ -93,7 +93,7 @@ tags = [
 >
 > **写直达的优点为**：
 >
->  缺失较简单，代价较小，因此不需要把整个块写回到较低的存储器层次中
+> 缺失较简单，代价较小，因此不需要把整个块写回到较低的存储器层次中
 >
 > 写直达比写回更易于实现，但是写直达cache仍需要一个写缓冲区
 >

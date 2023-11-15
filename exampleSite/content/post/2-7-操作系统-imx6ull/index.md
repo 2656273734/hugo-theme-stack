@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "操作系统——imx6ull"
-date = "2023-08-01"
+date = "2023-08-15"
 description = "操作系统专题之imx6ull"
 categories = [
     "操作系统"
@@ -10,8 +10,7 @@ tags = [
     "操作系统","imx6ull"
 ]
 +++
-![](1.jpg)
-
+![img](1.jpg)
 
 ## Linux学习（基于正点原子I.MX6U）
 
@@ -32,21 +31,21 @@ cd /sys/bus/platform/drivers/  # 查看platform节点
 
 ### 系统启动方式
 
->I.MX6U 支持多种启动方式以及启动设备，比如可以从 SD/EMMC、NAND Flash、QSPI Flash 等启动。
+> I.MX6U 支持多种启动方式以及启动设备，比如可以从 SD/EMMC、NAND Flash、QSPI Flash 等启动。
 >
->用户可以根据实际情况，选择合适的启动设备。不同的启动方式其启动方式和启动要求也不一样，比如上一章中的从 SD 卡启动就需要在 bin 文件前面添加一个数据头，其它的启 动设备也是需要这个数据头的。
+> 用户可以根据实际情况，选择合适的启动设备。不同的启动方式其启动方式和启动要求也不一样，比如上一章中的从 SD 卡启动就需要在 bin 文件前面添加一个数据头，其它的启 动设备也是需要这个数据头的。
 >
->**启动**
+> **启动**
 >
->1 2 3 4 5 6 7 8 启动设备
+> 1 2 3 4 5 6 7 8 启动设备
 >
->0 1 x x x x x x 串行下载，可以通过 USB 烧写镜像文件
+> 0 1 x x x x x x 串行下载，可以通过 USB 烧写镜像文件
 >
->1 0 0 0 0 0 1 0 SD 卡启动
+> 1 0 0 0 0 0 1 0 SD 卡启动
 >
->1 0 1 0 0 1 1 0 EMMC 启动      
+> 1 0 1 0 0 1 1 0 EMMC 启动
 >
->1 0 0 0 1 0 0 1 NAND FLASH 启动
+> 1 0 0 0 1 0 0 1 NAND FLASH 启动
 
 ```basic
 setenv bootcmd 'fatload mmc 1:1 80800000 zImage;fatload mmc 1:1 83000000 imx6ull-14x14-emmc-7-1024x600-c.dtb;bootz 80800000 - 83000000;'
@@ -147,9 +146,9 @@ run  # 用于运行环境变量中定义的命令
 
 #### 点灯
 
->**地址映射**
+> **地址映射**
 >
->物理内存和虚拟内存映射    **ioremap()**映射函数  和  **ioremap()**取消映射函数
+> 物理内存和虚拟内存映射    **ioremap()**映射函数  和  **ioremap()**取消映射函数
 
 ##### API
 
@@ -163,7 +162,7 @@ int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const ch
 int register_chrdev_region(dev_t from, unsigned count, const char *name)
 // 释放设备号
 void unregister_chrdev_region(dev_t from, unsigned count)
-    
+  
 // cdev 结构体表示一个字符设备
 struct cdev {
     struct kobject kobj;
@@ -177,7 +176,7 @@ struct cdev {
 void cdev_init(struct cdev *cdev, const struct file_operations *fops)
 int cdev_add(struct cdev *p, dev_t dev, unsigned count)
 void cdev_del(struct cdev *p)  // 删除设备
-    
+  
 // 自动创建节点
 struct class *class_create (struct module *owner, const char *name)  // 创建类
 void class_destroy(struct class *cls);  // 删除类
@@ -229,7 +228,7 @@ Copyright © ALIENTEK Co., Ltd. 1998-2029. All rights reserved.
 #define LEDON 					1			/* 开灯 */
  
 /* 寄存器物理地址 */
-#define CCM_CCGR1_BASE				(0X020C406C)	
+#define CCM_CCGR1_BASE				(0X020C406C)
 #define SW_MUX_GPIO1_IO03_BASE		(0X020E0068)
 #define SW_PAD_GPIO1_IO03_BASE		(0X020E02F4)
 #define GPIO1_DR_BASE				(0X0209C000)
@@ -264,13 +263,13 @@ void led_switch(u8 sta)
 	u32 val = 0;
 	if(sta == LEDON) {
 		val = readl(GPIO1_DR);
-		val &= ~(1 << 3);	
+		val &= ~(1 << 3);
 		writel(val, GPIO1_DR);
 	}else if(sta == LEDOFF) {
 		val = readl(GPIO1_DR);
-		val|= (1 << 3);	
+		val|= (1 << 3);
 		writel(val, GPIO1_DR);
-	}	
+	}
 }
 
 /*
@@ -321,7 +320,7 @@ static ssize_t led_write(struct file *filp, const char __user *buf, size_t cnt, 
 
 	ledstat = databuf[0];		/* 获取状态值 */
 
-	if(ledstat == LEDON) {	
+	if(ledstat == LEDON) {
 		led_switch(LEDON);		/* 打开LED灯 */
 	} else if(ledstat == LEDOFF) {
 		led_switch(LEDOFF);	/* 关闭LED灯 */
@@ -375,7 +374,7 @@ static int __init led_init(void)
 	 *    GPIO1_IO03，最后设置IO属性。
 	 */
 	writel(5, SW_MUX_GPIO1_IO03);
-	
+
 	/*寄存器SW_PAD_GPIO1_IO03设置IO属性
 	 *bit 16:0 HYS关闭
 	 *bit [15:14]: 00 默认下拉
@@ -396,7 +395,7 @@ static int __init led_init(void)
 
 	/* 5、默认关闭LED */
 	val = readl(GPIO1_DR);
-	val |= (1 << 3);	
+	val |= (1 << 3);
 	writel(val, GPIO1_DR);
 
 	/* 注册字符设备驱动 */
@@ -409,12 +408,12 @@ static int __init led_init(void)
 		newchrled.major = MAJOR(newchrled.devid);	/* 获取分配号的主设备号 */
 		newchrled.minor = MINOR(newchrled.devid);	/* 获取分配号的次设备号 */
 	}
-	printk("newcheled major=%d,minor=%d\r\n",newchrled.major, newchrled.minor);	
-	
+	printk("newcheled major=%d,minor=%d\r\n",newchrled.major, newchrled.minor);
+
 	/* 2、初始化cdev */
 	newchrled.cdev.owner = THIS_MODULE;
 	cdev_init(&newchrled.cdev, &newchrled_fops);
-	
+
 	/* 3、添加一个cdev */
 	cdev_add(&newchrled.cdev, newchrled.devid, NEWCHRLED_CNT);
 
@@ -429,7 +428,7 @@ static int __init led_init(void)
 	if (IS_ERR(newchrled.device)) {
 		return PTR_ERR(newchrled.device);
 	}
-	
+
 	return 0;
 }
 
@@ -463,38 +462,32 @@ MODULE_AUTHOR("zuozhongkai");
 
 #### 设备树点灯
 
->**路径** ： /arch/arm/boot/dts
+> **路径** ： /arch/arm/boot/dts
 >
->**设备树节点命名**  **node-name@unit-address**
+> **设备树节点命名**  **node-name@unit-address**
 >
->​	“unit-address”一般表示设备的地址或寄存器首地址
+>     “unit-address”一般表示设备的地址或寄存器首地址
 >
->**节点属性**
+> **节点属性**
 >
->1. **compatible** 属性：“兼容性”属性，用于将设备和驱动绑定起来
+> 1. **compatible** 属性：“兼容性”属性，用于将设备和驱动绑定起来
+> 2. **model** 属性：描述设备模块信息
+> 3. **status** 属性：设备状态
+> 4. **\#address-cells** 和  **#size-cells** 属性：表明子节点应该如何编写 reg 属性值
+> 5. **reg** 属性：用于描述设备地址空间资源信息，一般都是某个外设的寄存器地址范围信息
+> 6. **ranges** 属性：ranges 是一个地址映射/转换表，ranges 属性每个项目由子地址、父地址和地址空间长度组成
+> 7. **name** 属性：用于记录节点名字
+> 8. **device_type** 属性：用于描述设备的 FCode
 >
->2. **model** 属性：描述设备模块信息
+> **节点内容追加**
 >
->3. **status** 属性：设备状态
+> &i2c1{
 >
->4. **\#address-cells** 和  **#size-cells** 属性：表明子节点应该如何编写 reg 属性值
+>     /* 要追加或修改的内容 */
 >
->5. **reg** 属性：用于描述设备地址空间资源信息，一般都是某个外设的寄存器地址范围信息
->6. **ranges** 属性：ranges 是一个地址映射/转换表，ranges 属性每个项目由子地址、父地址和地址空间长度组成
->7. **name** 属性：用于记录节点名字
->8. **device_type** 属性：用于描述设备的 FCode
+> };    // 在I2C节点下追加内容
 >
->**节点内容追加**
->
->&i2c1{ 
->
->​		/* 要追加或修改的内容 */ 
->
->};    // 在I2C节点下追加内容
->
->**单独编译设备树**：make dtbs
->
->
+> **单独编译设备树**：make dtbs
 
 ##### API
 
@@ -517,7 +510,7 @@ inline struct device_node *of_find_node_by_path(const char *path)
 struct device_node *of_get_parent(const struct device_node *node)
 // 查找子节点
 struct device_node *of_get_next_child(const struct device_node *node, struct device_node *prev)
-    
+  
 // 查找指定的属性
 property *of_find_property(const struct device_node *np, const char *name, int *lenp)
 // 获取属性中元素的数量
@@ -607,13 +600,13 @@ void led_switch(u8 sta)
 	u32 val = 0;
 	if(sta == LEDON) {
 		val = readl(GPIO1_DR);
-		val &= ~(1 << 3);	
+		val &= ~(1 << 3);
 		writel(val, GPIO1_DR);
 	}else if(sta == LEDOFF) {
 		val = readl(GPIO1_DR);
-		val|= (1 << 3);	
+		val|= (1 << 3);
 		writel(val, GPIO1_DR);
-	}	
+	}
 }
 
 /*
@@ -664,7 +657,7 @@ static ssize_t led_write(struct file *filp, const char __user *buf, size_t cnt, 
 
 	ledstat = databuf[0];		/* 获取状态值 */
 
-	if(ledstat == LEDON) {	
+	if(ledstat == LEDON) {
 		led_switch(LEDON);		/* 打开LED灯 */
 	} else if(ledstat == LEDOFF) {
 		led_switch(LEDOFF);	/* 关闭LED灯 */
@@ -768,7 +761,7 @@ static int __init led_init(void)
 	 *    GPIO1_IO03，最后设置IO属性。
 	 */
 	writel(5, SW_MUX_GPIO1_IO03);
-	
+
 	/*寄存器SW_PAD_GPIO1_IO03设置IO属性
 	 *bit 16:0 HYS关闭
 	 *bit [15:14]: 00 默认下拉
@@ -789,7 +782,7 @@ static int __init led_init(void)
 
 	/* 5、默认关闭LED */
 	val = readl(GPIO1_DR);
-	val |= (1 << 3);	
+	val |= (1 << 3);
 	writel(val, GPIO1_DR);
 
 	/* 注册字符设备驱动 */
@@ -802,12 +795,12 @@ static int __init led_init(void)
 		dtsled.major = MAJOR(dtsled.devid);	/* 获取分配号的主设备号 */
 		dtsled.minor = MINOR(dtsled.devid);	/* 获取分配号的次设备号 */
 	}
-	printk("dtsled major=%d,minor=%d\r\n",dtsled.major, dtsled.minor);	
-	
+	printk("dtsled major=%d,minor=%d\r\n",dtsled.major, dtsled.minor);
+
 	/* 2、初始化cdev */
 	dtsled.cdev.owner = THIS_MODULE;
 	cdev_init(&dtsled.cdev, &dtsled_fops);
-	
+
 	/* 3、添加一个cdev */
 	cdev_add(&dtsled.cdev, dtsled.devid, DTSLED_CNT);
 
@@ -822,7 +815,7 @@ static int __init led_init(void)
 	if (IS_ERR(dtsled.device)) {
 		return PTR_ERR(dtsled.device);
 	}
-	
+
 	return 0;
 }
 
@@ -862,11 +855,11 @@ MODULE_AUTHOR("zuozhongkai");
 >
 > **pinctrl 子系统**
 >
-> 传统的配置 pin 的方式就是直接操作相应的寄存器，但是这种配置 方式比较繁琐、而且容易出问题(比如 pin 功能冲突)。pinctrl 子系统就是为了解决这个问题而引 入的，pinctrl 子系统主要工作内容如下： 
+> 传统的配置 pin 的方式就是直接操作相应的寄存器，但是这种配置 方式比较繁琐、而且容易出问题(比如 pin 功能冲突)。pinctrl 子系统就是为了解决这个问题而引 入的，pinctrl 子系统主要工作内容如下：
 >
-> ①、获取设备树中 pin 信息。 
+> ①、获取设备树中 pin 信息。
 >
-> ②、根据获取到的 pin 信息来设置 pin 的复用功能 
+> ②、根据获取到的 pin 信息来设置 pin 的复用功能
 >
 > ③、根据获取到的 pin 信息来设置 pin 的电气特性，比如上/下拉、速度、驱动能力等。
 >
@@ -886,14 +879,14 @@ pinctrl_test: testgrp {
     fsl,pins = <
     MX6UL_PAD_GPIO1_IO00__GPIO1_IO00 config   
 >;
-    
+  
 int gpio_request(unsigned gpio, const char *label)  // 申请一个 GPIO 管脚
 void gpio_free(unsigned gpio)  // 释放
 int gpio_direction_input(unsigned gpio)  // 设置某个 GPIO 为输入
 int gpio_direction_output(unsigned gpio, int value)  // 设置某个 GPIO 为输出
 int __gpio_get_value(unsigned gpio)  // 获取某个 GPIO 的值(0 或 1)
 void __gpio_set_value(unsigned gpio, int value)  // 设置某个 GPIO 的值
-    
+  
 /* 
 	在根节点“/”下创建 test 设备子节点
 */
@@ -1024,7 +1017,7 @@ static ssize_t led_write(struct file *filp, const char __user *buf, size_t cnt, 
 
 	ledstat = databuf[0];		/* 获取状态值 */
 
-	if(ledstat == LEDON) {	
+	if(ledstat == LEDON) {
 		gpio_set_value(dev->led_gpio, 0);	/* 打开LED灯 */
 	} else if(ledstat == LEDOFF) {
 		gpio_set_value(dev->led_gpio, 1);	/* 关闭LED灯 */
@@ -1094,12 +1087,12 @@ static int __init led_init(void)
 		gpioled.major = MAJOR(gpioled.devid);	/* 获取分配号的主设备号 */
 		gpioled.minor = MINOR(gpioled.devid);	/* 获取分配号的次设备号 */
 	}
-	printk("gpioled major=%d,minor=%d\r\n",gpioled.major, gpioled.minor);	
-	
+	printk("gpioled major=%d,minor=%d\r\n",gpioled.major, gpioled.minor);
+
 	/* 2、初始化cdev */
 	gpioled.cdev.owner = THIS_MODULE;
 	cdev_init(&gpioled.cdev, &gpioled_fops);
-	
+
 	/* 3、添加一个cdev */
 	cdev_add(&gpioled.cdev, gpioled.devid, GPIOLED_CNT);
 
@@ -1140,7 +1133,7 @@ MODULE_AUTHOR("zuozhongkai");
 
 ### platform设备驱动框架
 
->**驱动的分离与分层**
+> **驱动的分离与分层**
 
 ##### 示例
 
@@ -1230,11 +1223,8 @@ depmod
 modporobe gpioled.ko
 ./ledApp /deb/gpioled 1
 rmmod gpioled.ko
-    
-    
+  
+  
 ```
 
 ### linux应用开发
-
-
-

@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "单片机——杂项"
-date = "2023-08-01"
+date = "2023-08-14"
 description = "单片机专题之杂项"
 categories = [
     "单片机"
@@ -10,7 +10,8 @@ tags = [
     "单片机","杂项"
 ]
 +++
-![](1.jpg)
+![img](1.jpg)
+
 ## 单片机
 
 ## 51单片机的延时计算
@@ -33,7 +34,7 @@ void Delay10us()		//@12.000MHz
 {
 	unsigned char i;
 
-	_nop_();
+    _nop_();
 	_nop_();
 	i = 27;
 	while (--i);
@@ -74,7 +75,7 @@ void Delay10us()		//@12.000MHz
 {
 	unsigned char i;
 
-	_nop_();
+    _nop_();
 	_nop_();
 	i = 27;
 	while (--i);
@@ -128,7 +129,7 @@ main
 
 （2）开漏输出：N-MOS有效，低电平有较强的驱动能力
 
-​																										补充：TTL 是斯密特触发器：防止信号不稳定	
+    补充：TTL 是斯密特触发器：防止信号不稳定
 
 ### 2. 初始化过程
 
@@ -143,8 +144,8 @@ main
 |  形式  |         IO口         |     方式     |
 | :----: | :------------------: | :----------: |
 |  UART  |       TXD，RXD       | 全双工，异步 |
-|  I2C   |       SCL，SDA       | 半双工，同步 |
-|  SPI   | SCLK，MOSI，MISO，CS | 全双工，同步 |
+|  I2C  |       SCL，SDA       | 半双工，同步 |
+|  SPI  | SCLK，MOSI，MISO，CS | 全双工，同步 |
 | 1-wire |          DQ          | 半双工，异步 |
 
 （1）全双工：同一时刻可互传数据
@@ -153,7 +154,7 @@ main
 
 （3）同步：双方靠一根时钟线来约定通信速率
 
-（4）异步：双方各自约定通信速率 
+（4）异步：双方各自约定通信速率
 
 ### 4. 单片机使用printf()
 
@@ -163,9 +164,9 @@ main
 #include "stdio.h"
 
 int fputc(int ch, FILE *f)
-{ 	
+{ 
 	while((USART1->SR & 0X40)==0);//循环发送,直到发送完毕   
-	USART1->DR = (u8) ch;      
+	USART1->DR = (u8) ch;    
 	return ch;
 }
 ```
@@ -338,7 +339,7 @@ STM32的所有**片内外设**其实都是存储器，所以所有的这些存�
 
 首先编译器不知道0x40020410是一个啥东西，它可能表示小猫，也可能表示小狗。但是我们知道这个16进制数是一个地址对吧？那么怎么把它变成一个地址呢？
 
-是不是在它的前面加上(unsigned int*)变成`(unsigned int*)(0x40020410)`就把这个数变成一个指针了也就是一个地址了？但是我们操作的是这个地址里面的内容，是不是再在前面加上一个**星号**变成`*(unsigned int*)(0x40020410)`就可以了，然后就可以给它赋值了：`*(unsigned int*)(0x4002 0410) = 0xFFFF;`
+是不是在它的前面加上(unsigned int*)变成 `(unsigned int*)(0x40020410)`就把这个数变成一个指针了也就是一个地址了？但是我们操作的是这个地址里面的内容，是不是再在前面加上一个**星号**变成 `*(unsigned int*)(0x40020410)`就可以了，然后就可以给它赋值了：`*(unsigned int*)(0x4002 0410) = 0xFFFF;`
 
 #### 地址重映射
 
@@ -460,7 +461,6 @@ EA = 1 => 无效 => 片内存储器被忽略
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200603231606785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NzQw,size_16,color_FFFFFF,t_70)
 
-
 在20H~2FH空间中，重新为每一位地址分配一个地址00H ~ 7FH，从而实现按位访问。
 
 3、 一般RAM区：又称用户RAM区，80字节，对于52系列，一般从30H~FFH 供用户使用，对于前俩个区中未使用的地址单元也可以作为用户单元使用
@@ -483,10 +483,10 @@ EA = 1 => 无效 => 片内存储器被忽略
    \2. DATA  数据存储器  用于存放程序运行过程中的数据
        有8根地址总线，所以DATA的寻址空间为 00H~FFH 共256 byte.低128位可以直接寻址，高128位只能间接寻址。
 
-​    \3. XDATA 外部数据存储器（只能间接寻址，访问速度比较慢） DMA是再XDATA上寻址的，这一点很重要
-​       有16根地址总线，所以 XDATA 的寻址空间为 0000H ~ FFFFH 共64K
+    \3. XDATA 外部数据存储器（只能间接寻址，访问速度比较慢） DMA是再XDATA上寻址的，这一点很重要
+       有16根地址总线，所以 XDATA 的寻址空间为 0000H ~ FFFFH 共64K
 
-​    \4. SFR 特殊功能寄存器 就是那些T1CTL, EA, P0 等配置寄存器存储的地方 共128K。因为CC2530的配置寄存器比较多，所以一些多余的寄存器就放到了XREG 里面。XREG的大小为1K XREG的访问速度比 SFR慢。
+    \4. SFR 特殊功能寄存器 就是那些T1CTL, EA, P0 等配置寄存器存储的地方 共128K。因为CC2530的配置寄存器比较多，所以一些多余的寄存器就放到了XREG 里面。XREG的大小为1K XREG的访问速度比 SFR慢。
 
 以上4中存储空间只是4种不同寻址方式的概念，并不代表物理上具体的存储设备。例如 FLASH 或者 EEPROM都可以作为物理的存储媒介映射到CODE上，DRAM或者SRAM都可以作为存储媒介映射到DATA中。CODE和DATA是存储空间的概念，FLASH、SRAM、EEPROM等是具体的物理存储设备，这两个概念不要混淆。这好比，电脑需要RAM和ROM,这个ROM可以是西部数据的硬盘，也可以使三星的硬盘，也可以是不同材料的固态硬盘。一个是存储空间，另一个是具体的物理存储设备。
 
@@ -499,24 +499,24 @@ CC2530把FLASH存储器分成了几个bank，每个bank的大小是32KB,即对�
 
   三、关于XDATA存储器的映射
 关于XDATA的映射，可以这么说：一切都是为了DMA！！ 为了让DMA能访问所有的存储区域，所以把所有的存储器都映射到了XDATA上。上图：
-![XDATA.png](http://bbs.feibit.com/data/attachment/forum/201203/01/192143x368zxs8x4zmm67z.png) 
+![XDATA.png](http://bbs.feibit.com/data/attachment/forum/201203/01/192143x368zxs8x4zmm67z.png)
   从图中可以看出，XDATA中包含了所有存储器的映射，包括256kb的FLASH存储器，8K 的SRAM存储器，还有 SFR , XREG, INFORMATION FAGE。这里看出来，其实CC2530的DATA,和 XDATA，都是用SRAM作为物理存储媒介的，但是它们的寻址方式不一样，所以访问DATA,比访问XDATA要快。至于SFR,XREG,INFORMATION PAGE,我不知道它们用了什么物理存储媒介，但是它们都被映射到XDATA上，可以被DMA访问。
   这里要搞清楚一个概念，映射到XDATA上，不代表就只能用XDATA的寻址方式访问。比如SFR,它虽然被映射到了XDATA上，只能说明，DMA可以通过访问XDATA来操作SFR,但是CPU还是可以通过单周期访问SRF.打个比方，我们平时坐的公交车上都有一把逃生应急锤，在紧急情况下可以敲破窗子逃生。我们平时不会使用锤子敲碎窗子进出车厢，我们平时有车门可以走。但是在特殊情况下（比如DMA要操作某个存储器中的数据时），我们可以用特殊的方法（从XDATA上的映射来得到我们想要的数据）。
 
   四、关于从SRAM启动代码
 上图
 
-  ![CODE_2.png](http://bbs.feibit.com/data/attachment/forum/201203/01/19423187n895apfk866f8a.png) 
+  ![CODE_2.png](http://bbs.feibit.com/data/attachment/forum/201203/01/19423187n895apfk866f8a.png)
 这种情况下，CC2530把SRAM存储器整个都映射到了CODE的bank area，可以从SRAM中执行代码。不要理解错了，这里只是说可以从SRAM中运行代码，不代表程序从SRAM中启动。程序还是会从 CODE的rootbank的0000H开始执行，只不过我们可以通过程序控制，让程序跳到 8000H之后，执行我们SRAM中想要的代码。
 
 ### 11. BCD码（Binary Coded Decimal‎）
 
->用4位二进制数来表示1位十进制数
+> 用4位二进制数来表示1位十进制数
 >
->例：0001 0011表示13，1000 0101表示85，0001 1010不合法
+> 例：0001 0011表示13，1000 0101表示85，0001 1010不合法
 >
->在十六进制中的体现：0x13表示13，0x85表示85，0x1A不合法
+> 在十六进制中的体现：0x13表示13，0x85表示85，0x1A不合法
 >
->BCD码转十进制：DEC=BCD/16*10+BCD%16; （2位BCD）
+> BCD码转十进制：DEC=BCD/16*10+BCD%16; （2位BCD）
 >
->十进制转BCD码：BCD=DEC/10*16+DEC%10; （2位BCD）
+> 十进制转BCD码：BCD=DEC/10*16+DEC%10; （2位BCD）

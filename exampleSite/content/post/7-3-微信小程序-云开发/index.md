@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "微信小程序——云开发"
-date = "2023-08-01"
+date = "2023-07-19"
 description = "微信小程序专题之云开发"
 categories = [
     "微信小程序"
@@ -73,4 +73,3 @@ const db = wx.cloud.database().collection("test_db") // 创建数据库对象
         })
     },
 ```
-

@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "开发工具——Mysql"
-date = "2023-08-01"
+date = "2023-07-14"
 description = "开发工具专题之Mysql"
 categories = [
     "开发工具"
@@ -385,4 +385,3 @@ ALTER TABLE user4 MODIFY id INT PRIMARY KEY;  # 使用modify 修改字段,添加
 ```
 
 ### 7. 事务
-

@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "单片机——蓝桥杯51"
-date = "2023-08-01"
+date = "2023-08-07"
 description = "单片机专题之蓝桥杯51"
 categories = [
     "单片机"
@@ -47,13 +47,13 @@ void allinit(){
 }
 
 void key_proc(){
-    
+  
 }
 void led_proc(){
-    
+  
 }
 void disp_proc(){
-    
+  
 }
 ```
 
@@ -85,49 +85,49 @@ void show(u8 yi, u8 er, u8 san, u8 si, u8 wu, u8 liu, u8 qi, u8 ba){
 	P2 = 0xe0;
 	P0 = yi;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x02;
 	P2 = 0xe0;
 	P0 = er;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x04;
 	P2 = 0xe0;
 	P0 = san;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x08;
 	P2 = 0xe0;
 	P0 = si;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x10;
 	P2 = 0xe0;
 	P0 = wu;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x20;
 	P2 = 0xe0;
 	P0 = liu;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x40;
 	P2 = 0xe0;
 	P0 = qi;
 	Delay1ms();
-	
+
 	P2 = 0xc0;
 	P0 = 0x80;
 	P2 = 0xe0;
 	P0 = ba;
 	Delay1ms();
-	
+
 	P2 = 0x00;
 }
 ```
@@ -142,21 +142,21 @@ void show(u8 yi, u8 er, u8 san, u8 si, u8 wu, u8 liu, u8 qi, u8 ba){
 // 读一个字节
 unsigned char read24c02(unsigned char addr){
 	unsigned char dat;
-	
+
 	IIC_Start();
 	IIC_SendByte(0xa0);
 	IIC_WaitAck();
-	
+
 	IIC_SendByte(addr);
 	IIC_WaitAck();
-	
+
 	IIC_Start();
 	IIC_SendByte(0xa1);
 	IIC_WaitAck();
 	dat = IIC_RecByte();
 	IIC_SendAck(1);
 	IIC_Stop();
-	
+
 	return dat;
 }
 // 写一个字节
@@ -164,10 +164,10 @@ void write24c02(unsigned char addr, unsigned char dat){
 	IIC_Start();
 	IIC_SendByte(0xa0);
 	IIC_WaitAck();
-	
+
 	IIC_SendByte(addr);
 	IIC_WaitAck();
-	
+
 	IIC_SendByte(dat);
 	IIC_WaitAck();
 	IIC_Stop();
@@ -180,7 +180,7 @@ void write24c02(unsigned char addr, unsigned char dat){
 /*
     writecommand 0x90
     readcommand  0x91
-    
+  
     set_pcf(0x03);
     dac_dat = read_pcf();
 	dac_dat = dac_dat * (5.0 / 255);
@@ -190,26 +190,26 @@ void seletPcf(unsigned char channel){
 	IIC_Start();
 	IIC_SendByte(0x90);
 	IIC_WaitAck();
-	
+
 	IIC_SendByte(channel);
 	IIC_WaitAck();
-	
+
 	IIC_Stop();
 }
 
 // ADC输入
 unsigned char readChannel(){
 	unsigned int dat;
-	
+
 	IIC_Start();
-	
+
 	IIC_SendByte(0x91);
 	IIC_WaitAck();
-	
+
 	dat = IIC_RecByte();
 	IIC_SendAck(1);
 	IIC_Stop();
-	
+
 	return dat;
 }
 // DAC输出
@@ -218,13 +218,13 @@ void out_channel(unsigned char dat){
 
 	IIC_SendByte(0x90);
 	IIC_WaitAck();
-	
+
 	IIC_SendByte(0x40);
 	IIC_WaitAck();
 
 	IIC_SendByte(dat);
 	IIC_WaitAck();
-	
+
 	IIC_Stop();
 }
 ```
@@ -268,21 +268,21 @@ float read_tmp(){
 	float tmp;
 	unsigned char h_dat, l_dat;
 	unsigned int temp;
-	
+
 	init_ds18b20();
 	Write_DS18B20(0xcc);
 	Write_DS18B20(0x44); // 开始转化
-	
+
 	init_ds18b20();
 	Write_DS18B20(0xcc);
 	Write_DS18B20(0xbe);
-	
+
 	l_dat = Read_DS18B20();
 	h_dat = Read_DS18B20();
-	
+
 	temp = (h_dat << 8) | l_dat;
 	tmp = temp / 16.0;
-	
+
 	return tmp;
 }
 ```
@@ -329,7 +329,7 @@ void test_dis(){
 	if(TF1 == 0){
 		//distant = ((TH1 << 8) | TL1) * 340 / 2 / 10000;
 		distant = ((TH1 << 8) | TL1) * 0.017;
-		
+	
 		liu = data_pros[distant / 100 % 10];
 		qi = data_pros[distant / 10 % 10];
 		ba = data_pros[distant % 10];
@@ -360,7 +360,7 @@ void Timer0_Init(void)		//1毫秒@12.000MHz
 	TH0 = 0xff;				//设置定时初始值
 	TF0 = 0;				//清除TF0标志
 	TR0 = 1;				//定时器0开始计时
-	
+
 	ET0 = 1;
 	EA = 1;
 }
@@ -375,13 +375,13 @@ void Timer1_Init(void)		//1毫秒@12.000MHz
 	TH1 = 0xD1;				//设置定时初始值
 	TF1 = 0;				//清除TF1标志
 	TR1 = 1;				//定时器1开始计时
-	
+
 	ET1 = 1;
 	EA = 1;
 }
 void time1_isr() interrupt 3{
 	timer1_cnt++;
-	
+
 	if(timer1_cnt == 1000){
 		f_dat = timer0_cnt;
 		timer1_cnt = 0;
@@ -394,10 +394,10 @@ void time1_isr() interrupt 3{
 
 ```c
 void time0_isr() interrupt 1{
-	
+
 }
 void time1_isr() interrupt 3{
-	
+
 }
 ```
 
@@ -432,7 +432,7 @@ void key_proc(){
 	}
 	if(_R0 == 0){Delay10ms();while(_R0 == 0);Delay10ms();cnt++;}
 	if(_R1 == 0){Delay10ms();while(_R1 == 0);Delay10ms();cnt++;}
-	
+
 	R0 = R1 = _R0 = _R1 = 1;
 	L0 = L1 = _L0 = _L1 = 1;
 	L1 = 0;
@@ -446,7 +446,7 @@ void key_proc(){
 	}
 	if(_R0 == 0){Delay10ms();while(_R0 == 0);Delay10ms();cnt++;}
 	if(_R1 == 0){Delay10ms();while(_R1 == 0);Delay10ms();cnt++;}
-	
+
 	R0 = R1 = _R0 = _R1 = 1;
 	L0 = L1 = _L0 = _L1 = 1;
 	_L0 = 0;
@@ -454,7 +454,7 @@ void key_proc(){
 	if(R1 == 0){Delay10ms();while(R1 == 0);Delay10ms();cnt++;}
 	if(_R0 == 0){Delay10ms();while(_R0 == 0);Delay10ms();cnt++;}
 	if(_R1 == 0){Delay10ms();while(_R1 == 0);Delay10ms();cnt++;}
-	
+
 	R0 = R1 = _R0 = _R1 = 1;
 	L0 = L1 = _L0 = _L1 = 1;
 	_L1 = 0;
@@ -464,6 +464,3 @@ void key_proc(){
 	if(_R1 == 0){Delay10ms();while(_R1 == 0);Delay10ms();cnt++;}
 }
 ```
-
-
-

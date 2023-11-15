@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "微信小程序——echarts可视化"
-date = "2023-08-01"
+date = "2023-07-21"
 description = "微信小程序专题之echarts可视化"
 categories = [
     "微信小程序"
@@ -91,9 +91,9 @@ Page({
             // xdata: util.formatHour(new Date()),   //获取小时并传到xdata中
             month: util.formatMonth(new Date()), //获取月日并传到xdata中
             time: util.formatTime((new Date())),
-        });    
-    },1000);    
-    
+        });  
+    },1000);  
+  
     //获取到数据后渲染到图表
    setTimeout(()=>{
     this.lazyComponent=this.selectComponent('#mychart-dom-bar2')  //获取到组件
@@ -411,7 +411,7 @@ function MoreinitChart(xydata) {
     bottom: 0;
     left: 0;
     right: 0rpx;
-    
+  
 }
 .history{
     width: 20%;
@@ -465,8 +465,6 @@ function MoreinitChart(xydata) {
 </view>
 ```
 
-
-
 ### 2. img.js
 
 ```javascript
@@ -518,7 +516,7 @@ Page({
           });
 
 
-          
+        
             wx.uploadFile({
                 url: getApp().globalData.url+'/home/login/uploadQuestionFile', //接受图片的接口地址
                 filePath: tempFilePaths[0],
@@ -558,7 +556,7 @@ Page({
          urls: imgs
         })
        }
-      
+    
 })
 
 ```
@@ -607,4 +605,3 @@ Page({
   }
 
 ```
-

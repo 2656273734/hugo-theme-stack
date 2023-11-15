@@ -1,7 +1,7 @@
 +++
 author = "coucou"
 title = "数据结构——实践"
-date = "2023-08-01"
+date = "2023-07-24"
 description = "数据结构专题之实践"
 categories = [
     "数据结构"
@@ -101,7 +101,7 @@ int queue_pop(MyQueue *queue)
     {
         return 0;
     }
-    
+  
     data = queue->data[queue->head];
     queue->head = (queue->head - 1) % MAXDATA;
 
@@ -347,12 +347,12 @@ void insertlink(link *p, int data)
     next = (link *)malloc(sizeof(link));
     next->data = data;
 
-    
+  
     next->pre = p;
 
     next->next = p->next;
     p->next->pre = next;
-    
+  
     p->next = next;
 }
 
@@ -387,4 +387,3 @@ int main()
     return 0;
 }
 ```
-
