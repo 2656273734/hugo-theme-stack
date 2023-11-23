@@ -14,7 +14,7 @@ tags = [
 
 ## 嵌入式软件笔试面试
 
-### \#define 声明
+### \#define 声明 
 
 > 用预处理指令#define 声明一个常数，用以表明1年中有多少秒（忽略闰年问题）
 > 答案： #define SECONDS_PER_YEAR (60 * 60 * 24 * 365)UL
