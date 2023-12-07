@@ -1,7 +1,7 @@
 +++
 author = "陈保池"
 title = "无线传感器网络（持续更新中）"
-date = "2023-12-08"
+date = "2023-12-8"
 description = "无线传感器网络，临时抱佛脚版"
 categories = [
     "期末复习"
