@@ -1,3 +1,16 @@
++++
+author = "chen"
+title = "PlatformIO"
+date = "2024-5-21"
+description = "PlatformIO开发环境的安装"
+categories = [
+    "开发工具"
+]
+tags = [
+    "开发工具","PlatformIO"
+]
++++
+
 # VScode插件platformIO开发环境的安装
 
 1、准备好VSCODE Python的安装文件，安装python时把python的path选项勾选，在vscode的插件里搜索platformio添加，然后在终端里运行
