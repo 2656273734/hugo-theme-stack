@@ -15,7 +15,7 @@ tags = [
 
 1、准备好VSCODE Python的安装文件，安装python时把python的path选项勾选，在vscode的插件里搜索platformio添加，然后在终端里运行
 
-```shell
+```powershell
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple platformio
 ```
 
@@ -51,7 +51,21 @@ pio拓展图标设置配置
 
 **关掉VSCODE并结束相关进程，如不确定就重启电脑，复制离线包 将packages和platforms两个你从别处搞来的复制替换掉你的.platform文件夹内  默认路径 C:/Users/用户名/.platformio，**
 
+网盘离线包链接：https://pan.baidu.com/s/1QjOGZuMfNypWBMOTCASfOw?pwd=n7sy
+
+gitee离线包链接：https://gitee.com/chen-baochi/platform-io-support.git
+
 ![](image/7.png)
+
+如果觉得文件过大C盘内存不够可以通过软链接将该文件放到其他盘,比如放在D盘根目录
+
+先删除"C:\Users\(用户名)\"下的.platformio
+
+然后执行
+
+```powershell
+mklink /j "C:\Users\(用户名)\.platformio" "D:\.platformio"
+```
 
 这时候如果提示被占用 进任务管理器结束python的进程再覆盖，然后再打开vscode这时候 界面右下角不再有什么install..pio..core之类，还有等待载入这些恼火的弹窗，这是检查下环境和工具
 
